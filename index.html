@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Previsão de Fatura</title>
+</head>
+<body>
+
+<h1>Previsão de Fatura do Cartão</h1>
+
+<label>Data da Compra:</label><br>
+<input type="date" id="dataCompra"><br><br>
+
+<label>Dia de Fechamento:</label><br>
+<input type="number" id="fechamento"><br><br>
+
+<label>Dia de Vencimento:</label><br>
+<input type="number" id="vencimento"><br><br>
+
+<button onclick="calcular()">Calcular</button>
+
+<h2 id="resultado"></h2>
+
+<script>
+function calcular() {
+    let dataCompra = new Date(document.getElementById("dataCompra").value);
+    let fechamento = parseInt(document.getElementById("fechamento").value);
+    let vencimento = parseInt(document.getElementById("vencimento").value);
+
+    let mes = dataCompra.getMonth();
+    let ano = dataCompra.getFullYear();
+    let dia = dataCompra.getDate();
+
+    if (dia > fechamento) {
+        mes += 2;
+    } else {
+        mes += 1;
+    }
+
+    if (mes > 11) {
+        mes -= 12;
+        ano += 1;
+    }
+
+    let dataFinal = new Date(ano, mes, vencimento);
+    document.getElementById("resultado").innerText =
+    "Essa compra vencerá em: " + dataFinal.toLocaleDateString('pt-BR');
+}
+</script>
+
+</body>
+</html>
