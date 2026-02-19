@@ -5,30 +5,31 @@
   <title>Previsão de Fatura</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
 
-<h1>Previsão de Fatura</h1>
+    <h1>Previsão de Fatura</h1>
 
-<div class="input-group">
-  <span>📅</span>
-  <input type="date" id="dataCompra">
-</div>
+    <div class="input-group">
+        <span>📅</span>
+        <input type="date" id="dataCompra">
+    </div>
 
-<div class="input-group">
-  <span>🔒</span>
-  <input type="number" placeholder="Dia de Fechamento" id="fechamento">
-</div>
+    <div class="input-group">
+        <span>🔒</span>
+        <input type="number" placeholder="Dia de Fechamento" id="fechamento">
+    </div>
 
-<div class="input-group">
-  <span>💳</span>
-  <input type="number" placeholder="Dia de Vencimento" id="vencimento">
-</div>
+    <div class="input-group">
+        <span>💳</span>
+        <input type="number" placeholder="Dia de Vencimento" id="vencimento">
+    </div>
 
-<button onclick="calcular()">Calcular</button>
+    <button onclick="calcular()">Calcular</button>
 
-<h2 id="resultado"></h2>
+    <h2 id="resultado"></h2>
 
 </div>
 
@@ -54,6 +55,7 @@ function calcular() {
     }
 
     let dataFinal = new Date(ano, mes, vencimento);
+
     document.getElementById("resultado").innerText =
     "Essa compra vencerá em: " + dataFinal.toLocaleDateString('pt-BR');
 }
@@ -61,4 +63,3 @@ function calcular() {
 
 </body>
 </html>
-
