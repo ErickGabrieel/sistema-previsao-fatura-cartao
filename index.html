@@ -35,7 +35,7 @@
 
 <script>
 function calcular() {
-  const dataStr = document.getElementById("dataCompra").value;
+  const dataStr = document.getElementById("dataCompra").value; // YYYY-MM-DD
   const fechamento = parseInt(document.getElementById("fechamento").value, 10);
   const vencimento = parseInt(document.getElementById("vencimento").value, 10);
 
@@ -44,28 +44,25 @@ function calcular() {
     return;
   }
 
-  const compra = new Date(dataStr + "T00:00:00");
-  const diaCompra = compra.getDate();
+  // Parse seguro (sem bug de fuso):
+  const [ano, mes, dia] = dataStr.split("-").map(Number); // mes: 1-12
+  const dataCompra = new Date(ano, mes - 1, dia);
 
-  let mes = compra.getMonth();   // 0-11
-  let ano = compra.getFullYear();
-
-  // REGRA DO CARTÃO:
+  // Regra:
   // 1..(fechamento-1) => vence no mesmo mês
-  // fechamento..fim do mês => vence no próximo mês
-  if (diaCompra >= fechamento) {
-    mes += 1;
-    if (mes > 11) { mes = 0; ano += 1; }
+  // fechamento..fim do mês => vence no mês seguinte
+  let mesVenc = mes;   // 1-12 (começa no mesmo mês)
+  let anoVenc = ano;
+
+  if (dia >= fechamento) {
+    mesVenc += 1;
+    if (mesVenc === 13) { mesVenc = 1; anoVenc += 1; }
   }
 
-  const dataVenc = new Date(ano, mes, vencimento);
+  // Monta a data de vencimento (dia vencimento no mês calculado)
+  const dataVenc = new Date(anoVenc, mesVenc - 1, vencimento);
 
   document.getElementById("resultado").innerText =
     "Essa compra vencerá em: " + dataVenc.toLocaleDateString("pt-BR");
 }
 </script>
-}
-</script>
-
-</body>
-</html>
