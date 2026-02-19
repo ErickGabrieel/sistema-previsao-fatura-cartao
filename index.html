@@ -35,29 +35,35 @@
 
 <script>
 function calcular() {
-    let dataCompra = new Date(document.getElementById("dataCompra").value);
-    let fechamento = parseInt(document.getElementById("fechamento").value);
-    let vencimento = parseInt(document.getElementById("vencimento").value);
+  const dataStr = document.getElementById("dataCompra").value;
+  const fechamento = parseInt(document.getElementById("fechamento").value, 10);
+  const vencimento = parseInt(document.getElementById("vencimento").value, 10);
 
-    let mes = dataCompra.getMonth();
-    let ano = dataCompra.getFullYear();
-    let dia = dataCompra.getDate();
+  if (!dataStr || isNaN(fechamento) || isNaN(vencimento)) {
+    document.getElementById("resultado").innerText = "Preencha todos os campos.";
+    return;
+  }
 
-    if (dia > fechamento) {
-        mes += 2;
-    } else {
-        mes += 1;
-    }
+  const compra = new Date(dataStr + "T00:00:00");
+  const diaCompra = compra.getDate();
 
-    if (mes > 11) {
-        mes -= 12;
-        ano += 1;
-    }
+  let mes = compra.getMonth();   // 0-11
+  let ano = compra.getFullYear();
 
-    let dataFinal = new Date(ano, mes, vencimento);
+  // REGRA DO CARTÃO:
+  // 1..(fechamento-1) => vence no mesmo mês
+  // fechamento..fim do mês => vence no próximo mês
+  if (diaCompra >= fechamento) {
+    mes += 1;
+    if (mes > 11) { mes = 0; ano += 1; }
+  }
 
-    document.getElementById("resultado").innerText =
-    "Essa compra vencerá em: " + dataFinal.toLocaleDateString('pt-BR');
+  const dataVenc = new Date(ano, mes, vencimento);
+
+  document.getElementById("resultado").innerText =
+    "Essa compra vencerá em: " + dataVenc.toLocaleDateString("pt-BR");
+}
+</script>
 }
 </script>
 
