@@ -7,20 +7,30 @@
 </head>
 <body>
 
-<h1>Previsão de Fatura do Cartão</h1>
+<div class="container">
 
-<label>Data da Compra:</label><br>
-<input type="date" id="dataCompra"><br><br>
+<h1>Previsão de Fatura</h1>
 
-<label>Dia de Fechamento:</label><br>
-<input type="number" id="fechamento"><br><br>
+<div class="input-group">
+  <span>📅</span>
+  <input type="date" id="dataCompra">
+</div>
 
-<label>Dia de Vencimento:</label><br>
-<input type="number" id="vencimento"><br><br>
+<div class="input-group">
+  <span>🔒</span>
+  <input type="number" placeholder="Dia de Fechamento" id="fechamento">
+</div>
+
+<div class="input-group">
+  <span>💳</span>
+  <input type="number" placeholder="Dia de Vencimento" id="vencimento">
+</div>
 
 <button onclick="calcular()">Calcular</button>
 
 <h2 id="resultado"></h2>
+
+</div>
 
 <script>
 function calcular() {
@@ -51,3 +61,4 @@ function calcular() {
 
 </body>
 </html>
+
